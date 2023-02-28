@@ -28,14 +28,16 @@ class AdminController < ApplicationController
     admin = Admin.find_by(email: params[:email])
 
     unless admin.present?
-      render json: @api_manager.render_error_message("Admin not Found")
+      render json: @api_manager.render_error_message('Admin not Found')
       return
     end
 
     if admin.authenticate(params[:password])
+      admin = admin.as_json
+      admin['token'] = Jwt.encode_token({ email: params[:email] })
       render json: @api_manager.render_result_json(admin)
     else
-      render json: @api_manager.render_error_message("Invalid email or password!")
+      render json: @api_manager.render_error_message('Invalid email or password!')
     end
   end
 end
