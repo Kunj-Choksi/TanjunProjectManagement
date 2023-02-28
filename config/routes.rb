@@ -8,4 +8,10 @@ Rails.application.routes.draw do
     post 'sign_up', via: 'admin#sign_up'
     post 'login', via: 'admin#login'
   end
+
+  namespace :developer do
+    post :create
+    patch :activate_account, via: 'developer#activate_account'
+    post :login, via: 'developer#login'
+  end
 end

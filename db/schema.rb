@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_210058) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_175450) do
   create_table "admins", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -21,4 +21,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_210058) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "developers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "status"
+    t.string "password_digest"
+    t.integer "created_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_developers_on_created_by_id"
+  end
+
+  add_foreign_key "developers", "admins", column: "created_by_id"
 end
