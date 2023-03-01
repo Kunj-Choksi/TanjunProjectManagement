@@ -1,5 +1,6 @@
 class DeveloperController < AbstractAdminController
   before_action :authenticate_admin, only: [:create]
+  before_action :check_admin_status, only: [:create]
 
   def create
     if (msg = @api_manager.has_sufficient_params(params, %w[first_name last_name email]))
@@ -12,12 +13,12 @@ class DeveloperController < AbstractAdminController
     developer.first_name = params[:first_name]
     developer.last_name = params[:last_name]
     developer.email = params[:email]
-    developer.created_by_id = @admin
+    developer.created_by_id = @admin.id
     developer.password = 'somesecretpassword'
     developer.status = 'initiated'
 
     if developer.save
-      render json: @api_manager.render_result_json(developer)
+      render json: @api_manager.render_success_message("Created new Developer")
     else
       @api_manager.render_error_message(developer.errors.full_messages)
     end

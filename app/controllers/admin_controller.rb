@@ -13,7 +13,7 @@ class AdminController < AbstractAdminController
     admin.password_confirmation = params[:password_confirmation]
 
     if admin.save
-      render json: @api_manager.render_result_json(admin)
+      render json: @api_manager.render_success_message("Created new admin!")
     else
       render json: @api_manager.render_error_message(admin.errors.full_messages)
     end
