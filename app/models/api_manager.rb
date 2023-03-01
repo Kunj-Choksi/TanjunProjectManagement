@@ -1,7 +1,14 @@
 class ApiManager
-  def has_sufficient_params(params, api_params)
+
+  attr_reader :params
+
+  def initialize params
+    @params = params
+  end
+
+  def has_sufficient_params(api_params)
     api_params.each do |ap|
-      unless params.keys.include?(ap)
+      unless @params.keys.include?(ap)
         return "#{ap.humanize} not present!"
       end
     end

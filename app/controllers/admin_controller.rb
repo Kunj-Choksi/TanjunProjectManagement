@@ -1,6 +1,6 @@
 class AdminController < AbstractAdminController
   def sign_up
-    if (msg = @api_manager.has_sufficient_params(params, %w[first_name last_name email password password_confirmation]))
+    if (msg = @api_manager.has_sufficient_params(%w[first_name last_name email password password_confirmation]))
       render json: @api_manager.render_error_message(msg)
       return
     end
@@ -20,7 +20,7 @@ class AdminController < AbstractAdminController
   end
 
   def login
-    if (msg = @api_manager.has_sufficient_params(params, %w[email password]))
+    if (msg = @api_manager.has_sufficient_params(%w[email password]))
       render json: @api_manager.render_error_message(msg)
       return
     end

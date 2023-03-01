@@ -4,6 +4,6 @@ class ApplicationController < ActionController::API
   private
 
   def create_new_api_manager
-    @api_manager = ApiManager.new
+    @api_manager = ApiManager.new(params)
   end
 end

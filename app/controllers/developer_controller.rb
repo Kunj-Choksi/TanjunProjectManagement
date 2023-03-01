@@ -3,7 +3,7 @@ class DeveloperController < AbstractAdminController
   before_action :check_admin_status, only: [:create]
 
   def create
-    if (msg = @api_manager.has_sufficient_params(params, %w[first_name last_name email]))
+    if (msg = @api_manager.has_sufficient_params(%w[first_name last_name email]))
       render json: @api_manager.render_error_message(msg)
       return
     end
@@ -25,7 +25,7 @@ class DeveloperController < AbstractAdminController
   end
 
   def activate_account
-    if (msg = @api_manager.has_sufficient_params(params, %w[email password password_confirmation]))
+    if (msg = @api_manager.has_sufficient_params(%w[email password password_confirmation]))
       render json: @api_manager.render_error_message(msg)
       return
     end
@@ -43,7 +43,7 @@ class DeveloperController < AbstractAdminController
   end
 
   def login
-    if (msg = @api_manager.has_sufficient_params(params, %w[email password]))
+    if (msg = @api_manager.has_sufficient_params(%w[email password]))
       render json: @api_manager.render_error_message(msg)
       return
     end
