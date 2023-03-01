@@ -14,4 +14,8 @@ Rails.application.routes.draw do
     patch :activate_account, via: 'developer#activate_account'
     post :login, via: 'developer#login'
   end
+
+  namespace :project do
+    post :create
+  end
 end
