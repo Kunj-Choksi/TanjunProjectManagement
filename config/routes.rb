@@ -5,17 +5,18 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :admin do
-    post 'sign_up', via: 'admin#sign_up'
-    post 'login', via: 'admin#login'
+    post :sign_up
+    post :login
   end
 
   namespace :developer do
     post :create
-    patch :activate_account, via: 'developer#activate_account'
-    post :login, via: 'developer#login'
+    patch :activate_account
+    post :login
   end
 
   namespace :project do
     post :create
+    post :add_developer
   end
 end

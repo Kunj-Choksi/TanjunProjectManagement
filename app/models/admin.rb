@@ -11,11 +11,24 @@ class Admin < ApplicationRecord
 
   def as_json
     result = {}
+    result['id'] = id
     result['first_name'] = first_name
     result['last_name'] = last_name
     result['email'] = email
     result['status'] = status
 
     result
+  end
+
+  def own_this_project(project_id)
+    p = Project.find(project_id)
+
+    p.created_by_id == self.id
+  end
+
+  def own_this_developer(developer_id)
+    d = Developer.find(developer_id)
+
+    d.created_by_id == self.id
   end
 end
