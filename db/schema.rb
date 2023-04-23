@@ -22,9 +22,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_140229) do
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
     t.string "status"
     t.string "password_digest"
     t.integer "created_by_id"

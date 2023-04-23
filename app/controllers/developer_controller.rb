@@ -8,19 +8,12 @@ class DeveloperController < AbstractAdminController
       return
     end
 
-    developer = Developer.new
+    developer = DeveloperServices::CreateDeveloper.new(developer_params, @admin).call
 
-    developer.first_name = params[:first_name]
-    developer.last_name = params[:last_name]
-    developer.email = params[:email]
-    developer.created_by_id = @admin.id
-    developer.password = 'somesecretpassword'
-    developer.status = 'initiated'
-
-    if developer.save
+    if developer.persisted?
       render json: @api_manager.render_success_message("Created new Developer")
     else
-      @api_manager.render_error_message(developer.errors.full_messages)
+      render json: @api_manager.render_error_message(developer.errors.full_messages)
     end
   end
 
@@ -68,5 +61,11 @@ class DeveloperController < AbstractAdminController
     else
       render json: @api_manager.render_error_message('Invalid email or password!')
     end
+  end
+
+  private
+
+  def developer_params
+    params.permit(:first_name, :last_name, :email)
   end
 end
